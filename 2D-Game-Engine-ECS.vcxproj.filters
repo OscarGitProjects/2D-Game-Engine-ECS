@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{01619cfb-551c-4558-ac18-a2d509a97738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{b138e0a1-2a14-419e-addb-ea6d836e9eaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Configuration">
+      <UniqueIdentifier>{64f92579-5d65-46ec-b241-f9f285816ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Configuration">
+      <UniqueIdentifier>{c0b9cbd4-617f-4c43-ad15-fd2f56f3bed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entity">
+      <UniqueIdentifier>{02dd7a20-ffbc-46ab-9047-a0c4ae3e1aef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entity">
+      <UniqueIdentifier>{28130320-6180-4980-8a66-cd0f0427a3a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{d942efa7-53fb-452b-bcd1-34df0833bfee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{3b866346-db1b-41ea-8d95-dd2699d0d206}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="2D-Game-Engine-ECS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CCollision.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CDamage.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CHealth.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CInput.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CLifespan.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CScore.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CShape.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CTransform.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration\CBulletConfig.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration\CConfigValidation.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration\CEnemyConfig.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration\CFontConfig.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration\CPlayerConfig.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration\CWindowConfig.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\CEntity.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\CEntityCreation.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\CEntityManager.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\CCollisionHelpers.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\CDirection.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\CHelpers.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="CGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration\CConfiguration.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Components\CCollision.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CDamage.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CHealth.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CInput.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CLifespan.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CScore.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CShape.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CTransform.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration\CBulletConfig.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration\CConfiguration.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration\CConfigValidation.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration\CEnemyConfig.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration\CFontConfig.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration\CPlayerConfig.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration\CWindowConfig.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\CEntity.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\CEntityCreation.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\CEntityManager.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\CCollisionHelpers.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\CDirection.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\CHelpers.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="CGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
