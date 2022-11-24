@@ -158,6 +158,7 @@
     <ClCompile Include="Helpers\CCollisionHelpers.cpp" />
     <ClCompile Include="Helpers\CDirection.cpp" />
     <ClCompile Include="Helpers\CHelpers.cpp" />
+    <ClCompile Include="Resources\CFontResources.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGame.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="Helpers\CCollisionHelpers.h" />
     <ClInclude Include="Helpers\CDirection.h" />
     <ClInclude Include="Helpers\CHelpers.h" />
+    <ClInclude Include="Resources\CFontResources.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

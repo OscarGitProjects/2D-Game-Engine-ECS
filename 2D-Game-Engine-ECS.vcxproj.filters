@@ -37,6 +37,12 @@
     <Filter Include="Header Files\Helpers">
       <UniqueIdentifier>{3b866346-db1b-41ea-8d95-dd2699d0d206}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{f83f2c7a-1384-4edd-8b0c-1da1a05f6fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resources">
+      <UniqueIdentifier>{589b2f70-5661-4f89-861b-2c9ff039a16c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2D-Game-Engine-ECS.cpp">
@@ -108,6 +114,9 @@
     <ClCompile Include="Configuration\CConfiguration.cpp">
       <Filter>Source Files\Configuration</Filter>
     </ClCompile>
+    <ClCompile Include="Resources\CFontResources.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\CCollision.h">
@@ -178,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="enums.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\CFontResources.h">
+      <Filter>Header Files\Resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

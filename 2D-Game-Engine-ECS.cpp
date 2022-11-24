@@ -2,9 +2,20 @@
 
 int main()
 {
-    CGame game;
-    game.initialize("config.txt", "Fonts/sansation.ttf");
-    game.run();
+    int iReturnValue = 0;
 
-    return 0;
+    CGame game;
+
+    try
+    {
+        game.initialize("config.txt", "Fonts/sansation.ttf");
+        game.run();
+    }
+    catch (std::runtime_error & er)
+    {
+        std::cout << "Game Exception. " << er.what() << std::endl;
+        iReturnValue = 1;
+    }
+
+    return iReturnValue;
 }

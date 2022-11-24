@@ -27,25 +27,6 @@ CGame::CGame(const std::string& strConfigFileName, const std::string & strFontFi
 /* Method run the game */
 void CGame::run()
 {
-	// Set up sf::Font for the framerate text
-	m_Configuration.getFontConfig().HasFont(false);
-	bool bHasFont = false;
-
-	// FIX. Problem with reference to sf::Font. I load it here and it works
-	// Load font from harddrive
-	sf::Font font;
-	if (font.loadFromFile(m_Configuration.getFontConfig().getFontFileName()))
-	{
-		m_Configuration.getFontConfig().HasFont(true);
-
-		m_ScoreText.setFont(font);
-		m_NumberOfDeathsText.setFont(font);
-		m_YouAreKilledMessageText.setFont(font);
-		m_NumberOfKilledText.setFont(font);
-
-		bHasFont = true;
-	}
-
 	// Position the You are killed message in the window
 	sf::FloatRect fRect = m_YouAreKilledMessageText.getGlobalBounds();
 	sf::Vector2u vecWindowSize = m_Window.getSize();
@@ -98,29 +79,43 @@ void CGame::initialize()
     // Load configurations from config file
     m_Configuration.LoadConfigurations();
 
+	// Load font from harddrive and add it to a map	
+	std::string strFontFileName = m_Configuration.getFontConfig().getFontFileName();
+	if (m_FontResources.m_FontMap[strFontFileName].loadFromFile(strFontFileName))
+		m_Configuration.getFontConfig().HasFont(true);
+	else
+	{
+		m_Configuration.getFontConfig().HasFont(false);
+		throw std::runtime_error("CGame::initialize(). Cant load font");		
+	}
+
 	// Set up text for score
 	m_ScoreText.setString("Score");
 	m_ScoreText.setFillColor(m_Configuration.getFontConfig().getFontColor());
 	m_ScoreText.setCharacterSize(m_Configuration.getFontConfig().getFontSize());
 	m_ScoreText.setPosition(10.0f, 5.0f);
+	m_ScoreText.setFont(m_FontResources.m_FontMap[strFontFileName]);
 
 	// Set up text for number of killed enemies
 	m_NumberOfKilledText.setString("You have killed");
 	m_NumberOfKilledText.setFillColor(m_Configuration.getFontConfig().getFontColor());
 	m_NumberOfKilledText.setCharacterSize(m_Configuration.getFontConfig().getFontSize());
 	m_NumberOfKilledText.setPosition(10.0f, 5.0f);
+	m_NumberOfKilledText.setFont(m_FontResources.m_FontMap[strFontFileName]);
 
 	// Set up text for number of times player has been killed
 	m_NumberOfDeathsText.setString("You have been killed " + std::to_string(this->m_PlayerNumberOfTimeKilled) + " times");
 	m_NumberOfDeathsText.setFillColor(m_Configuration.getFontConfig().getFontColor());
 	m_NumberOfDeathsText.setCharacterSize(m_Configuration.getFontConfig().getFontSize());
 	m_NumberOfDeathsText.setPosition(300, 5.0f);
+	m_NumberOfDeathsText.setFont(m_FontResources.m_FontMap[strFontFileName]);	
 
 	// Set up text for when player has been killed
 	m_YouAreKilledMessageText.setString("You are dead. Wait for respawn of player");
 	m_YouAreKilledMessageText.setFillColor(sf::Color::Red);
 	m_YouAreKilledMessageText.setCharacterSize(24);
 	m_YouAreKilledMessageText.setPosition(300, 300);
+	m_YouAreKilledMessageText.setFont(m_FontResources.m_FontMap[strFontFileName]);
 
 
 	// Get the window mode. Fullscreen or windowed mode
@@ -465,6 +460,8 @@ void CGame::sMovement()
 		}
 	}
 
+	int iHealth = 0;
+	sf::Color fillColor;
 
 	// Update all entities
 	for (auto& entity : m_EntityManager.getEntities())
@@ -474,6 +471,29 @@ void CGame::sMovement()
 
 			entity->cTransform->position += entity->cTransform->velocity;
 			entity->cShape->getShape().setPosition(entity->cTransform->position);
+
+			if (entity->getTypeOfEntity() == ENEMY)
+			{
+				fillColor = entity->cShape->getShape().getFillColor();
+				iHealth = entity->cHealth->health;
+				fillColor.a = iHealth;
+				entity->cShape->getShape().setFillColor(fillColor);
+			}
+
+
+			// Rotate shape
+			entity->cTransform->angle += entity->cTransform->rotationSpeed;
+
+			if (entity->cTransform->angle > 360.0f)
+				entity->cTransform->angle = 0.0f;
+
+			entity->cShape->getShape().setRotation(entity->cTransform->angle);
+		}
+
+
+		if (entity->getTypeOfEntity() == GUI)
+		{
+			entity->cShape->getShape().setRotation(entity->cTransform->angle);
 		}
 	}
 }
@@ -493,19 +513,6 @@ void CGame::sRender()
 	{
 		if (!entityEnemy->getDestroy())
 		{// We shall draw this entity
-
-			fillColor = entityEnemy->cShape->getShape().getFillColor();
-			iHealth = entityEnemy->cHealth->health;
-			fillColor.a = iHealth;
-			entityEnemy->cShape->getShape().setFillColor(fillColor);
-
-			// Rotate shape
-			entityEnemy->cTransform->angle += entityEnemy->cTransform->rotationSpeed;
-
-			if (entityEnemy->cTransform->angle > 360.0f)
-				entityEnemy->cTransform->angle = 0.0f;
-
-			entityEnemy->cShape->getShape().setRotation(entityEnemy->cTransform->angle);
 			m_Window.draw(entityEnemy->cShape->getShape());
 		}
 	}
@@ -520,20 +527,12 @@ void CGame::sRender()
 
 
 	// Draw player
-	// Rotate shape
-	m_Player->cTransform->angle += m_Player->cTransform->rotationSpeed;
-
-	if (m_Player->cTransform->angle > 360.0f)
-		m_Player->cTransform->angle = 0.0f;
-
-	m_Player->cShape->getShape().setRotation(m_Player->cTransform->angle);
 	m_Window.draw(m_Player->cShape->getShape());
 
 
 	// Draw gui entities
 	for (auto& entityGUI : m_EntityManager.getEntities("GUI"))
-	{// We shall draw this entity
-		entityGUI->cShape->getShape().setRotation(entityGUI->cTransform->angle);
+	{	
 		m_Window.draw(entityGUI->cShape->getShape());
 	}
 

@@ -28,8 +28,8 @@ std::shared_ptr<CEntity> CEntityCreation::createPlayer(sf::RenderWindow& window,
 	sf::Vector2u vecSize = window.getSize();
 	int iCollisionBoxRadius3 = configuration.getPlayerConfig().getCollisionBoxRadius() * 3;
 
-	int iRandomX = m_Helpers.getRandomNumber(0 + iCollisionBoxRadius3, vecSize.x - iCollisionBoxRadius3);
-	int iRandomY = m_Helpers.getRandomNumber(0 + iCollisionBoxRadius3, vecSize.y - iCollisionBoxRadius3);
+	int iRandomX = m_Helpers.getRandomNumber(iCollisionBoxRadius3, vecSize.x - iCollisionBoxRadius3);
+	int iRandomY = m_Helpers.getRandomNumber(iCollisionBoxRadius3, vecSize.y - iCollisionBoxRadius3);
 
 	entity->cShape->getShape().setPosition(sf::Vector2f((float)iRandomX, (float)iRandomY));
 
@@ -119,8 +119,8 @@ std::shared_ptr<CEntity> CEntityCreation::createEnemy(sf::RenderWindow& window, 
 
 	do
 	{
-		iRandomX = m_Helpers.getRandomNumber(0 + iCollisionBoxRadius3, vecSize.x - iCollisionBoxRadius3);
-		iRandomY = m_Helpers.getRandomNumber(0 + iCollisionBoxRadius3, vecSize.y - iCollisionBoxRadius3);
+		iRandomX = m_Helpers.getRandomNumber(iCollisionBoxRadius3, vecSize.x - iCollisionBoxRadius3);
+		iRandomY = m_Helpers.getRandomNumber(iCollisionBoxRadius3, vecSize.y - iCollisionBoxRadius3);
 
 		entity->cShape->getShape().setPosition(sf::Vector2f((float)iRandomX, (float)iRandomY));
 

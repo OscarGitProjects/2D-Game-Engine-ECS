@@ -6,6 +6,7 @@
 #include "Components/CCollision.h"
 #include "Helpers/CCollisionHelpers.h"
 #include "Entity/CEntityCreation.h"
+#include "Resources/CFontResources.h"
 
 /*
 	CGame.h
@@ -39,6 +40,8 @@ private:
 	CCollisionHelpers m_CollisionHelpers;			// Helper class for collision detection
 	CHelpers m_Helpers;								// Helper class with methods for creating random numbers and for convert enum Type_of_Entity to a std::string
 	CEntityCreation m_EntityCreation;				// Class where i create entities
+
+	CFontResources m_FontResources;					// Object with a map of fonts
 
 public:
 	sf::Font m_Font;

@@ -94,13 +94,7 @@ bool CConfiguration::LoadFontConfigurations()
 	m_FontConfig.setFontSize(18);
 	m_FontConfig.setFontColor(sf::Color(250, 250, 250));
 
-	// load font from harddrive
-	if (m_FontConfig.getFont().loadFromFile(m_FontConfig.getFontFileName()))
-		m_FontConfig.HasFont(true);
-	else
-		m_FontConfig.HasFont(false);
-
-	return m_FontConfig.HasFont();
+	return true;
 }
 
 
