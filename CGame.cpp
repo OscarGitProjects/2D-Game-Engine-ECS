@@ -745,7 +745,7 @@ void CGame::sCollision()
 	// Now we check if a bullet has collided with something
 	for (auto& entityBullet : m_EntityManager.getEntities("BULLET"))
 	{ 
-		if (entityBullet->cCollision != nullptr && !entityBullet->isDead())
+		if (entityBullet->cCollision != nullptr)
 		{
 			if (!entityBullet->isDead())
 			{// We have a bullet. now we do collision detection with a enemy entities
