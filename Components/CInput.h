@@ -4,7 +4,7 @@
 	CInput.h
 	CInput class with information about whish key is pressed and whish mouse button is pressed
 	@author Oscar Andersson
-	@date 2022-11-14
+	@date 2022-11-29
 	@version 1.0
 */
 class CInput
@@ -30,4 +30,7 @@ public:
 		Constructor 
 	*/
 	CInput() {}
+
+	/* Method clear all input variables */
+	void ClearInput();
 };

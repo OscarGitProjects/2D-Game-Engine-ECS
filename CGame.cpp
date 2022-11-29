@@ -269,13 +269,7 @@ void CGame::respawnPlayer()
 		{// Respawn the player. 
 
 			// Clear input before respawn the player
-			m_Player->cInput->leftMouseDown = false;
-			m_Player->cInput->rigthMouseDown = false;
-			m_Player->cInput->up = false;
-			m_Player->cInput->down = false;
-			m_Player->cInput->left = false;
-			m_Player->cInput->right = false;
-			m_Player->cInput->die = false;
+			m_Player->cInput->ClearInput();
 
 			float fRadius = m_Player->cShape->getShape().getRadius();
 			m_Player->cShape->getShape().setOrigin(fRadius, fRadius);
