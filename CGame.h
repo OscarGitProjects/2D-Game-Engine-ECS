@@ -44,6 +44,13 @@ private:
 	CFontResources m_FontResources;					// Object with a map of fonts
 
 public:
+	
+	/*
+		Method check if player has the special weapon
+		@return true if player has a special weapon. otherwise return false
+	*/
+	bool HasSpecialWeapon();
+
 	sf::Font m_Font;
 
 	/* Constructor */
@@ -126,11 +133,17 @@ public:
 	void createBullet(std::shared_ptr<CEntity>& shootingEntity, const sf::Vector2i& mousePosition);
 
 	/*
+		Method create a special effect
+		@param shootingEntity Entity that are creating the special effect
+	*/
+	void createSpecialWeapon(std::shared_ptr<CEntity>& shootingEntity);
+
+	/*
 		Method create a special weapon effect moving from entity position to mousePosition
 		@param shootingEntity Reference to entity with a position that is the starting point for the special weapon effect
-		@param mousePosition Point where the special weapons effect shall go
 	*/
-	void createSpecialWeapon(std::shared_ptr<CEntity>& shootingEntity, const sf::Vector2i& mousePosition);
+	void createSpecialWeaponBullet(std::shared_ptr<CEntity>& shootingEntity);
+
 
 	/* Method create a new enemy */
 	void createEnemy();
@@ -154,6 +167,9 @@ public:
 
 	/* System method that handle creation of enemies */
 	void sEnemyCreation();			// System: Handles the creation of new enemies
+
+	/* System method that handle special weapon */
+	void sSpecialWeapon();			// System: Handles the special weapon
 
 	/* System method that handles entities with a lifespan added to them */
 	void sLifespan();				// Sysstem: Handles enteties with a lifespan

@@ -10,6 +10,7 @@
 #include "../Components/CHealth.h"
 #include "../Components/CScore.h"
 #include "../Components/CDamage.h"
+#include "../Components/CSpecialWeapon.h"
 
 
 /*
@@ -53,6 +54,7 @@ public:
 	std::shared_ptr<CHealth> cHealth = nullptr;
 	std::shared_ptr<CDamage> cDamage = nullptr;
 	std::shared_ptr<CLifespan> cLifespan = nullptr;
+	std::shared_ptr<CSpecialWeapon> cSpecialWeapon = nullptr;
 	
 
 	// get methods

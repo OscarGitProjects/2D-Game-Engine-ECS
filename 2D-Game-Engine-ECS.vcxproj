@@ -144,6 +144,7 @@
     <ClCompile Include="Components\CLifespan.cpp" />
     <ClCompile Include="Components\CScore.cpp" />
     <ClCompile Include="Components\CShape.cpp" />
+    <ClCompile Include="Components\CSpecialWeapon.cpp" />
     <ClCompile Include="Components\CTransform.cpp" />
     <ClCompile Include="Configuration\CBulletConfig.cpp" />
     <ClCompile Include="Configuration\CConfiguration.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Components\CLifespan.h" />
     <ClInclude Include="Components\CScore.h" />
     <ClInclude Include="Components\CShape.h" />
+    <ClInclude Include="Components\CSpecialWeapon.h" />
     <ClInclude Include="Components\CTransform.h" />
     <ClInclude Include="Configuration\CBulletConfig.h" />
     <ClInclude Include="Configuration\CConfiguration.h" />

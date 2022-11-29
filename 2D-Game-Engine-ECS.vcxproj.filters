@@ -117,6 +117,9 @@
     <ClCompile Include="Resources\CFontResources.cpp">
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="Components\CSpecialWeapon.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\CCollision.h">
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="Resources\CFontResources.h">
       <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CSpecialWeapon.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

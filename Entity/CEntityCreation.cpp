@@ -209,3 +209,70 @@ std::shared_ptr<CEntity> CEntityCreation::createBullet(sf::RenderWindow& window,
 
 	return entity;
 }
+
+
+/*
+	Method create a bullet entity. For this bullet we use the angle in the CSpecialWeapon for the direction we shall shot the bullet
+	@param window Reference to sf::RenderWindow object
+	@param entityManager Reference to entity manager object
+	@param configuration Reference to CConfiguration object
+	@param shootingEntity Reference to object that is shooting the bullet
+	@return std::shared_ptr to the bullet entity
+*/
+std::shared_ptr<CEntity> CEntityCreation::createSpecialWeaponsBullet(sf::RenderWindow& window, CEntityManager& entityManager, CConfiguration& configuration, std::shared_ptr<CEntity>& shootingEntity)
+{
+	auto entity = entityManager.addEntity(BULLET);
+
+	// Create the shape
+	//								   CShape(float fRadius, int iPoints, const sf::Color fillColor, const sf::Color outlineColor, float fOutlineThickness)
+	entity->cShape = std::make_shared<CShape>((float)configuration.getBulletConfig().getShapeRadius(),
+		configuration.getBulletConfig().getNumberOfVerticesForShape(), configuration.getBulletConfig().getFillColor(),
+		configuration.getBulletConfig().getOutlineColor(), (float)configuration.getBulletConfig().getOutlineThickness());
+
+	// Change origin of shape to middle point
+	float fRadius = entity->cShape->getShape().getRadius();
+	entity->cShape->getShape().setOrigin(fRadius, fRadius);
+
+	sf::Vector2f vecShootingEntityPosition = shootingEntity->cShape->getShape().getPosition();
+
+	float fCurrentAngle = shootingEntity->cSpecialWeapon->currentAngle;
+
+	//std::cout << "Current Angle: " << fCurrentAngle * (180/M_PI) << std::endl;
+
+	sf::Vector2f vec(cos(fCurrentAngle), sin(fCurrentAngle));
+
+	// Calculate velocity for this bullet
+	float fSpeed = configuration.getBulletConfig().getSpeed();
+	sf::Vector2f velocity(vec.x * fSpeed, vec.y * fSpeed);
+
+	// Calculate position for start point for the bullet
+	float fshootingEntityRadius = shootingEntity->cShape->getShape().getRadius();
+
+	float fshootingEntityRadiusX = fshootingEntityRadius / 2.0f;
+	float fshootingEntityRadiusY = fshootingEntityRadiusX;
+
+	//if (vecShootingEntityPosition.x > mousePosition.x)
+	//	fshootingEntityRadiusX *= -1;
+
+	//if (vecShootingEntityPosition.y > mousePosition.y)
+	//	fshootingEntityRadiusY *= -1;
+
+	sf::Vector2f vecBulletStartPosition(vecShootingEntityPosition.x + fshootingEntityRadiusX, vecShootingEntityPosition.y + fshootingEntityRadiusY);
+
+	float fRotationSpeed = 0.0f;
+
+	// Add a transform component to the bullet
+	//                                     CTransform(const sf::Vector2f& pos, const sf::Vector2f& vel, float fAngle, float fRotationSpeed)
+	entity->cTransform = std::make_shared<CTransform>(vecBulletStartPosition, velocity, 0.0f, fRotationSpeed);
+
+	// This bullet has a lifetime. We create it here
+	entity->cLifespan = std::make_shared<CLifespan>(configuration.getBulletConfig().getLifespan());
+
+	// Add a collision component to bullet
+	entity->cCollision = std::make_shared<CCollision>((float)configuration.getBulletConfig().getCollisionBoxRadius());
+
+	// Add a damage component to the bullet
+	entity->cDamage = std::make_shared<CDamage>(configuration.getBulletConfig().getDamage());
+
+	return entity;
+}

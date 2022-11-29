@@ -24,6 +24,19 @@ CGame::CGame(const std::string& strConfigFileName, const std::string & strFontFi
 
 /***** Methods *****/
 
+/* 
+	Method check if player has the special weapon 
+	@return true if player has a special weapon. otherwise return false 
+*/
+bool CGame::HasSpecialWeapon() {
+
+	if (m_Player->cScore->scoreCountToSpecialWeapon >= 300)
+		return true;
+
+	return false;
+}
+
+
 /* Method run the game */
 void CGame::run()
 {
@@ -56,6 +69,7 @@ void CGame::run()
 		{
 			sPlayerHandling();
 			sEnemyCreation();
+			sSpecialWeapon();
 			sCollision();
 			sLifespan();
 			sMovement();
@@ -185,13 +199,23 @@ void CGame::createBullet(std::shared_ptr<CEntity>& shootingEntity, const sf::Vec
 
 
 /*
-	Method create a special weapon effect moving from entity position to mousePosition
-	@param shootingEntity Reference to entity with a position that is the starting point for the special weapon effect
-	@param mousePosition Point where the special weapons effect shall go
+	Method create a special effect
+	@param shootingEntity Entity that are creating the special effect
 */
-void CGame::createSpecialWeapon(std::shared_ptr<CEntity>& shootingEntity, const sf::Vector2i& mousePosition)
+void CGame::createSpecialWeapon(std::shared_ptr<CEntity>& shootingEntity)
+{	
+	// This special effect shot 20 bullets with 45 degrees angle and it will be 10 frames between every bullet
+	shootingEntity->cSpecialWeapon = std::make_shared<CSpecialWeapon>(10, 0.785398f, 20);	// 0.785398 radians is 45 degrees
+}
+
+
+/*
+	Method create a special weapon effect bullet
+	@param shootingEntity Reference to entity with a position that is the starting point for the special weapon effect
+*/
+void CGame::createSpecialWeaponBullet(std::shared_ptr<CEntity>& shootingEntity)
 {
-	// TODO Special weapon is a upcoming function
+	m_EntityCreation.createSpecialWeaponsBullet(m_Window, m_EntityManager, m_Configuration, shootingEntity);
 }
 
 
@@ -313,9 +337,13 @@ void CGame::sGuiHandling()
 	float fTextYPos = 5.0f;
 
 	m_NumberOfDeathsText.setPosition(fTextXPos, fTextYPos);
+	
+	std::string strScoreText = "Score " + std::to_string(m_Player->cScore->score);
+	
+	if (this->HasSpecialWeapon())
+		strScoreText += ". Has special weapon";
 
-	if (m_Player->cScore != nullptr)
-		m_ScoreText.setString("Score " + std::to_string(m_Player->cScore->score));
+	m_ScoreText.setString(strScoreText);
 
 
 	// Position the number of kills messages
@@ -354,8 +382,11 @@ void CGame::sPlayerHandling()
 			{
 				// std::cout << "Right mouse button clicked at (" << m_Player->cInput->iRightMouseDownPositionX << ", " << m_Player->cInput->iRightMouseDownPositionY << ")" << std::endl;
 
-				if (!m_Player->isDead())
-					createSpecialWeapon(m_Player, sf::Vector2i(m_Player->cInput->iRightMouseDownPositionX, m_Player->cInput->iRightMouseDownPositionY));
+				if (!m_Player->isDead() && this->HasSpecialWeapon() && m_Player->cSpecialWeapon == nullptr)
+				{
+					m_Player->cScore->scoreCountToSpecialWeapon = 0;
+					createSpecialWeapon(m_Player);
+				}
 
 				m_Player->cInput->rigthMouseDown = false;
 			}
@@ -373,6 +404,43 @@ void CGame::sEnemyCreation()
 	{
 		if((m_uiCurrentFrame - m_iLastEnemySpawnTime) > 120)
 			createEnemy();
+	}
+}
+
+
+/*
+	System method that handle special weapon
+	System: Handles the special weapon
+*/
+void CGame::sSpecialWeapon()
+{
+	/* 	int numberOfFramesBetweenBullets = 10;		// Number of frames between bullets
+	int numberOfBullets = 10;					// Total number of bullets we want to shoot
+	float angle = 0.0f;							// Angle between bullets
+	int bulletCount = 0;						// Number of bullets we have shot
+
+	float oldAngle = 0.0f;	*/
+	if (m_Player != nullptr && m_Player->cSpecialWeapon != nullptr && !m_Player->isDead())
+	{// We have a special weapon
+
+		m_Player->cSpecialWeapon->iFrameCount++;
+		if (m_Player->cSpecialWeapon->iFrameCount >= m_Player->cSpecialWeapon->numberOfFramesBetweenBullets)
+		{// We shall shot another bullet
+
+			m_Player->cSpecialWeapon->bulletCount++;
+
+			if (m_Player->cSpecialWeapon->bulletCount < m_Player->cSpecialWeapon->numberOfBullets)
+			{
+				this->createSpecialWeaponBullet(m_Player);
+				m_Player->cSpecialWeapon->currentAngle += m_Player->cSpecialWeapon->angle;
+				m_Player->cSpecialWeapon->iFrameCount = 0;
+			}
+			else
+			{
+				m_Player->cSpecialWeapon = nullptr;
+			}
+
+		}
 	}
 }
 
@@ -758,6 +826,7 @@ void CGame::sCollision()
 						m_EntityManager.m_NumberOfEntitiesToBeRemoved++;
 						entityEnemy->cHealth->health -= entityBullet->cDamage->damage;
 						m_Player->cScore->score += entityBullet->cDamage->damage;
+						m_Player->cScore->scoreCountToSpecialWeapon += entityBullet->cDamage->damage;
 
 						if (entityEnemy->cHealth->health <= 0)
 						{							

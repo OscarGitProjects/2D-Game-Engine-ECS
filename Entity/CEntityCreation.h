@@ -58,4 +58,15 @@ public:
 		@return std::shared_ptr to the bullet entity
 	*/
 	std::shared_ptr<CEntity> createBullet(sf::RenderWindow& window, CEntityManager& entityManager, CConfiguration& configuration, std::shared_ptr<CEntity>& shootingEntity, const sf::Vector2i& mousePosition);
+
+
+	/*
+		Method create a bullet entity. For this bullet we use the angle in the CSpecialWeapon for the direction we shall shot the bullet
+		@param window Reference to sf::RenderWindow object
+		@param entityManager Reference to entity manager object
+		@param configuration Reference to CConfiguration object
+		@param shootingEntity Reference to object that is shooting the bullet
+		@return std::shared_ptr to the bullet entity
+	*/
+	std::shared_ptr<CEntity> createSpecialWeaponsBullet(sf::RenderWindow& window, CEntityManager& entityManager, CConfiguration& configuration, std::shared_ptr<CEntity>& shootingEntity);
 };
