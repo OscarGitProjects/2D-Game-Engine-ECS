@@ -1,5 +1,8 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include <SFML/Graphics.hpp>
 #include "Configuration/CConfiguration.h"
 #include "Entity/CEntityManager.h"
@@ -12,8 +15,8 @@
 	CGame.h
 	CGame class that handles the game functions
 	@author Oscar Andersson
-	@date 2022-11-14
-	@version 1.0
+	@date 2022-12-03
+	@version 1.1
 */
 class CGame
 {
@@ -143,6 +146,12 @@ public:
 		@param shootingEntity Reference to entity with a position that is the starting point for the special weapon effect
 	*/
 	void createSpecialWeaponBullet(std::shared_ptr<CEntity>& shootingEntity);
+
+	/*
+	Method create a number of small enemie object.
+	@param entityEnemy Is the base entity from where we create small entities from
+*/
+	void createSmallEntities(std::shared_ptr<CEntity>& entityEnemy);
 
 
 	/* Method create a new enemy */

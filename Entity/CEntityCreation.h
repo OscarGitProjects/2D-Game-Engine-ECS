@@ -12,8 +12,8 @@
 	CEntityCreation.h
 	CEntityCreation class with methods to create entities
 	@author Oscar Andersson
-	@date 2022-11-21
-	@version 1.0
+	@date 2022-12-03
+	@version 1.1
 */
 class CEntityCreation
 {
@@ -46,6 +46,17 @@ public:
 		@return std::shared_ptr to the enemy entity
 	*/
 	std::shared_ptr<CEntity> createEnemy(sf::RenderWindow& window, CEntityManager& entityManager, CConfiguration& configuration, std::shared_ptr<CEntity> player);
+
+
+	/*
+		Method create a small enemy entity
+		@param window Reference to sf::RenderWindow object
+		@param entityManager Reference to entity manager object
+		@param configuration Reference to CConfiguration object
+		@param std::shared_ptr<CEntity> entityEnemy Reference to the enemie object where we shall cretae the new small enemies
+		@param fShottingAngle Angle direction in radius. Its the direction we will move the new entity
+	*/
+	std::shared_ptr<CEntity> createSmallEntity(sf::RenderWindow& window, CEntityManager& entityManager, CConfiguration& configuration, std::shared_ptr<CEntity> entityEnemy, float fShottingAngle);
 
 
 	/*

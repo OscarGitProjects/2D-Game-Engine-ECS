@@ -33,6 +33,7 @@ private:
 	Type_of_Entity m_Type_Of_Entity = NA;	// Type of entity. ex. NA, PLAYER, ENEMY or BULLET
 	bool m_bDestroy = false;				// true if we shall remove the entity
 	bool m_bRespawn = false;				// true when it is time to respawn
+	bool m_bSmallEntity = false;			// A small entity shall not break into smaller entities
 
 	/*
 		Private Constructor
@@ -42,8 +43,13 @@ private:
 	CEntity(const int iId, const Type_of_Entity& typeOfEntity);
 
 public:
-	bool getRespawn() { return m_bRespawn; }
-	void setRespawn(bool bRespawn) { m_bRespawn = bRespawn; }
+
+	/*
+		Check if this entity is a small entity. I use this to check if a entity shall break down to smaller entities
+		@return true if it is a smaller entity. Otherwise retuirns false
+	*/
+	bool isSmallEntity() { return m_bSmallEntity; }
+
 
 	// Pointers to Components
 	std::shared_ptr<CTransform> cTransform = nullptr;
@@ -89,6 +95,12 @@ public:
 	*/
 	bool getDestroy() { return m_bDestroy; }
 
+	/*
+		Method return a bool indication if the entity shall be respawn or not
+		@return true if this entity shall respawn. Otherwise return false
+	*/
+	bool getRespawn() { return m_bRespawn; }
+
 
 	// set methods
 
@@ -126,6 +138,20 @@ public:
 		@param bDestroy true if entity shall be destroyed. Otherwise false
 	*/
 	void setDestroy(bool bDestroy) { m_bDestroy = bDestroy; }
+
+
+	/*
+		Method set a bool indication if the entity shall be respawn or not
+		@param bRespawn true if this entity shall respawn. Otherwise set to false
+	*/
+	void setRespawn(bool bRespawn) { m_bRespawn = bRespawn; }
+
+
+	/*
+		Method set variable that indicat if this is a small entity or not
+		@param bSmallEntity true if it is a small entity. Otherwise set it to false
+	*/
+	bool setSmallEntity(bool bSmallEntity) { return m_bSmallEntity = bSmallEntity; }
 
 
 	/***** Methods *****/

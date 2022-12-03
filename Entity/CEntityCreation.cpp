@@ -145,6 +145,56 @@ std::shared_ptr<CEntity> CEntityCreation::createEnemy(sf::RenderWindow& window, 
 
 
 /*
+	Method create a small enemy entity
+	@param window Reference to sf::RenderWindow object
+	@param entityManager Reference to entity manager object
+	@param configuration Reference to CConfiguration object
+	@param std::shared_ptr<CEntity> entityEnemy Reference to the enemie object where we shall cretae the new small enemies
+	@param fShottingAngle Angle direction in radius. Its the direction we will move the new entity
+*/
+std::shared_ptr<CEntity> CEntityCreation::createSmallEntity(sf::RenderWindow& window, CEntityManager& entityManager, CConfiguration& configuration, std::shared_ptr<CEntity> entityEnemy, float fShottingAngle)
+{
+	auto entity = entityManager.addEntity(ENEMY);
+
+	entity->setSmallEntity(true);
+
+	sf::CircleShape& shape = entityEnemy->cShape->getShape();
+
+	float fNewShapeRadius = shape.getRadius() / 2.0f;
+	int iNumberOfVerticesForShape = (int)shape.getPointCount();
+
+	// Create the shape
+	//								   CShape(float fRadius, int iPoints, const sf::Color fillColor, const sf::Color outlineColor, float fOutlineThickness)
+	entity->cShape = std::make_shared<CShape>((float)fNewShapeRadius, iNumberOfVerticesForShape, shape.getFillColor(),
+		shape.getOutlineColor(), (float)shape.getOutlineThickness());
+
+	float fRadius = shape.getRadius();
+	entity->cShape->getShape().setOrigin(fRadius, fRadius);
+
+	// Add a collision component to the entity
+	entity->cCollision = std::make_shared<CCollision>((float)fRadius + 4);
+
+	sf::Vector2f vec(cos(fShottingAngle), sin(fShottingAngle));
+	sf::Vector2f vecVelocity = entityEnemy->cTransform->velocity;
+
+	vecVelocity.x = vecVelocity.x * vec.x;
+	vecVelocity.y = vecVelocity.y * vec.y;
+
+	// Add a transform component to the entity
+	//                                     CTransform(const sf::Vector2f& pos, const sf::Vector2f& vel, float fAngle, float fRotationSpeed)
+	entity->cTransform = std::make_shared<CTransform>(entityEnemy->cTransform->position, vecVelocity, 0.0f, entityEnemy->cTransform->rotationSpeed);
+
+	int iHealth = entityEnemy->cHealth->health / 2;
+
+	std::cout << "Vertices: " << iNumberOfVerticesForShape << ", Health: " << iHealth << ", Speed (" << std::to_string(vecVelocity.x) << ", " << std::to_string(vecVelocity.y) << ")" << std::endl;
+
+	// Add health component to entity
+	entity->cHealth = std::make_shared<CHealth>(iHealth);
+	return entity;
+}
+
+
+/*
 	Method create a bullet entity
 	@param window Reference to sf::RenderWindow object
 	@param entityManager Reference to entity manager object

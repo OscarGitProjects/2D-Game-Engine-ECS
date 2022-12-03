@@ -219,6 +219,25 @@ void CGame::createSpecialWeaponBullet(std::shared_ptr<CEntity>& shootingEntity)
 }
 
 
+/*
+	Method create a number of small enemie object.
+	@param entityEnemy Is the base entity from where we create small entities from
+*/
+void CGame::createSmallEntities(std::shared_ptr<CEntity>& entityEnemy)
+{
+	int numberOfPoints = (int)entityEnemy->cShape->getShape().getPointCount();
+	float fAngle = (float)((2 * M_PI) / (float)numberOfPoints);
+	float fCurrentAngle = 0.1f;
+
+	for (int iCount = 0; iCount < numberOfPoints; iCount++)
+	{
+		fCurrentAngle += fAngle;
+		std::cout << "numberOfPoints: " << numberOfPoints << ", fAngle: " << fAngle << std::endl;
+		m_EntityCreation.createSmallEntity(m_Window, m_EntityManager, m_Configuration, entityEnemy, fCurrentAngle);
+	}
+}
+
+
 /* Method create a new enemy entity */
 void CGame::createEnemy()
 {
@@ -281,8 +300,8 @@ void CGame::respawnPlayer()
 			sf::Vector2u vecSize = m_Window.getSize();
 			int iCollisionBoxRadius3 = m_Configuration.getPlayerConfig().getCollisionBoxRadius() * 3;
 
-			int iRandomX = m_Helpers.getRandomNumber(0 + iCollisionBoxRadius3, vecSize.x - iCollisionBoxRadius3);
-			int iRandomY = m_Helpers.getRandomNumber(0 + iCollisionBoxRadius3, vecSize.y - iCollisionBoxRadius3);
+			int iRandomX = m_Helpers.getRandomNumber(iCollisionBoxRadius3, vecSize.x - iCollisionBoxRadius3);
+			int iRandomY = m_Helpers.getRandomNumber(iCollisionBoxRadius3, vecSize.y - iCollisionBoxRadius3);
 
 			m_Player->cShape->getShape().setPosition(sf::Vector2f((float)iRandomX, (float)iRandomY));
 			m_Player->cTransform->position = sf::Vector2f((float)iRandomX, (float)iRandomY);
@@ -783,8 +802,14 @@ void CGame::sCollision()
 					entityEnemy->destroy();
 					// std::cout << "Player collided with enemy (" << entityEnemy->getId() << ")" << std::endl;
 
-					m_bSpawnNewEnemy = true;
-					m_iLastEnemySpawnTime = m_uiCurrentFrame;
+					if (!entityEnemy->isSmallEntity())
+					{
+						createSmallEntities(entityEnemy);
+
+						// TODO First version. We only have one enemy
+						m_bSpawnNewEnemy = true;
+						m_iLastEnemySpawnTime = m_uiCurrentFrame;
+					}
 				}
 			}
 
@@ -828,9 +853,14 @@ void CGame::sCollision()
 							entityEnemy->isDead(true);
 							entityEnemy->destroy();
 
-							// TODO First version. We only have one enemy
-							m_bSpawnNewEnemy = true;
-							m_iLastEnemySpawnTime = m_uiCurrentFrame;
+							if (!entityEnemy->isSmallEntity())
+							{
+								createSmallEntities(entityEnemy);
+
+								// TODO First version. We only have one enemy
+								m_bSpawnNewEnemy = true;
+								m_iLastEnemySpawnTime = m_uiCurrentFrame;
+							}
 						}
 
 						m_EntityManager.m_NumberOfEntitiesToBeRemoved++;
