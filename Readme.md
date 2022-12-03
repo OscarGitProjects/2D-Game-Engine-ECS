@@ -6,7 +6,7 @@ It is a simple game where the player has to shoot down incoming shapes.
 There are some random things here. As the color, speed, direction that the shapes are moving, Number of vertices that the shape has and Health.
 
 You control your shape with the keys W, S, A and D. Pause the game with P. Unpause the game by pressing P again. Press space bar and you die.
-Press Esc to end the game. You shoot bullets with the left mouse button. With the right mouse button you can use tyhe special weapon. 
+Press Esc to end the game. You shoot bullets with the left mouse button. With the right mouse button you can use the special weapon. 
 You get the special weapon when you have got x number of points.
 
 I learned this with the help of training videos on youtube and reading about it on the internet.
